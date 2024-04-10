@@ -76,10 +76,9 @@ function testExploit() public {
     uint256 tokensBefore = tokenB.balanceOf(arbitrager);
     console.log("Before Arbitrage tokenB Balance: %s", tokensBefore);
 
-    // 确保首次授权成功，授权足够数量的tokenB给router
     tokenB.approve(address(router), 5 ether);
 
-    uint256 deadline = block.timestamp + 300; // 设置期限
+    uint256 deadline = block.timestamp + 300; 
 
     // tokenB -> tokenA
     address[] memory pathBA = new address[](2);
@@ -87,7 +86,6 @@ function testExploit() public {
     pathBA[1] = address(tokenA);
     router.swapExactTokensForTokens(5 ether, 0, pathBA, arbitrager, deadline);
 
-    // 获取交换后的tokenA余额，并授权给router
     uint256 tokenABalance = tokenA.balanceOf(arbitrager);
     tokenA.approve(address(router), tokenABalance);
 
@@ -97,7 +95,7 @@ function testExploit() public {
     pathAD[1] = address(tokenD);
     router.swapExactTokensForTokens(tokenABalance, 0, pathAD, arbitrager, deadline);
 
-    // 获取交换后的tokenD余额，并授权给router
+    
     uint256 tokenDBalance = tokenD.balanceOf(arbitrager);
     tokenD.approve(address(router), tokenDBalance);
 
@@ -107,7 +105,7 @@ function testExploit() public {
     pathDC[1] = address(tokenC);
     router.swapExactTokensForTokens(tokenDBalance, 0, pathDC, arbitrager, deadline);
 
-    // 获取交换后的tokenC余额，并授权给router
+    
     uint256 tokenCBalance = tokenC.balanceOf(arbitrager);
     tokenC.approve(address(router), tokenCBalance);
     
